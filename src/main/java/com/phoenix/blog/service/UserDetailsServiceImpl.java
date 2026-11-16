@@ -1,7 +1,7 @@
 package com.phoenix.blog.service;
 
-import com.phoenix.blog.Bean.User;
-import com.phoenix.blog.DAO.UserDAO;
+import com.phoenix.blog.model.Users;
+import com.phoenix.blog.dao.UserDAO;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,13 +24,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) {
-        Optional<User> userOptional = userDAO.findByUsername(username);
-        User user = userOptional
+        Optional<Users> userOptional = userDAO.findByUsername(username);
+        Users users = userOptional
                 .orElseThrow(() -> new UsernameNotFoundException("No user found with username: " + username));
 
         return new org.springframework.security
-                .core.userdetails.User(user.getUsername(), user.getPassword(),
-                user.isEnabled(), true, true,
+                .core.userdetails.User(users.getUsername(), users.getPassword(),
+                users.isEnabled(), true, true,
                 true, getAuthorities("USER"));
     }
 

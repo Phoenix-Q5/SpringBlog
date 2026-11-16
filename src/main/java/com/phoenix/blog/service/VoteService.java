@@ -1,19 +1,19 @@
 package com.phoenix.blog.service;
 
-import com.phoenix.blog.DTO.VoteDto;
+import com.phoenix.blog.dto.VoteDto;
 import com.phoenix.blog.exceptions.PostNotFoundException;
 import com.phoenix.blog.exceptions.SpringPostException;
-import com.phoenix.blog.Bean.Post;
-import com.phoenix.blog.Bean.Vote;
-import com.phoenix.blog.DAO.PostDAO;
-import com.phoenix.blog.DAO.VoteDAO;
+import com.phoenix.blog.model.Post;
+import com.phoenix.blog.model.Vote;
+import com.phoenix.blog.dao.PostDAO;
+import com.phoenix.blog.dao.VoteDAO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static com.phoenix.blog.Bean.VoteType.UPVOTE;
+import static com.phoenix.blog.model.VoteType.UPVOTE;
 
 @Service
 @AllArgsConstructor
@@ -27,7 +27,7 @@ public class VoteService {
     public void vote(VoteDto voteDto) {
         Post post = postDAO.findById(voteDto.getPostId())
                 .orElseThrow(() -> new PostNotFoundException("Post not found with ID - " + voteDto.getPostId()));
-        Optional<Vote> voteByPostAndUser = voteDAO.findTopByPostAndUserOrderByVoteIdDesc(post, authService.getCurrentUser());
+        Optional<Vote> voteByPostAndUser = voteDAO.findTopByPostAndUsersOrderByVoteIdDesc(post, authService.getCurrentUser());
         if (voteByPostAndUser.isPresent() &&
                 voteByPostAndUser.get().getVoteType()
                         .equals(voteDto.getVoteType())) {
@@ -47,7 +47,7 @@ public class VoteService {
         return Vote.builder()
                 .voteType(voteDto.getVoteType())
                 .post(post)
-                .user(authService.getCurrentUser())
+                .users(authService.getCurrentUser())
                 .build();
     }
 }

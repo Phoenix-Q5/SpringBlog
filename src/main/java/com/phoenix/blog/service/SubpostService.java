@@ -1,10 +1,10 @@
 package com.phoenix.blog.service;
 
-import com.phoenix.blog.DTO.SubpostDto;
+import com.phoenix.blog.dto.SubpostDto;
 import com.phoenix.blog.exceptions.SpringPostException;
 import com.phoenix.blog.mapper.SubpostMapper;
-import com.phoenix.blog.Bean.Subpost;
-import com.phoenix.blog.DAO.SubpostDAO;
+import com.phoenix.blog.model.Subpost;
+import com.phoenix.blog.dao.SubpostDAO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

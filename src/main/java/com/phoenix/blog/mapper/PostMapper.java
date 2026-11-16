@@ -1,12 +1,12 @@
 package com.phoenix.blog.mapper;
 
 import com.github.marlonlom.utilities.timeago.TimeAgo;
-import com.phoenix.blog.DTO.PostRequest;
-import com.phoenix.blog.DTO.PostResponse;
-import com.phoenix.blog.DAO.CommentDAO;
-import com.phoenix.blog.DAO.VoteDAO;
+import com.phoenix.blog.dto.PostRequest;
+import com.phoenix.blog.dto.PostResponse;
+import com.phoenix.blog.dao.CommentDAO;
+import com.phoenix.blog.dao.VoteDAO;
 import com.phoenix.blog.service.AuthService;
-import com.phoenix.blog.Bean.*;
+import com.phoenix.blog.model.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +28,11 @@ public abstract class PostMapper {
     @Mapping(target = "description", source = "postRequest.description")
     @Mapping(target = "subpost", source = "subpost")
     @Mapping(target = "voteCount", constant = "0")
-    @Mapping(target = "user", source = "user")
-    public abstract Post map(PostRequest postRequest, Subpost subpost, User user);
+    @Mapping(target = "users", source = "users")
+    public abstract Post map(PostRequest postRequest, Subpost subpost, Users users);
     @Mapping(target = "id", source = "postId")
     @Mapping(target = "subpostName", source = "subpost.name")
-    @Mapping(target = "userName", source = "user.username")
+    @Mapping(target = "userName", source = "users.username")
     @Mapping(target = "commentCount", expression = "java(commentCount(post))")
     @Mapping(target = "duration", expression = "java(getDuration(post))")
     @Mapping(target = "upVote", expression = "java(isPostUpVoted(post))")
@@ -60,7 +60,7 @@ public abstract class PostMapper {
     private boolean checkVoteType(Post post, VoteType voteType) {
         if (authService.isLoggedIn()) {
             Optional<Vote> voteForPostByUser =
-                    voteDAO.findTopByPostAndUserOrderByVoteIdDesc(post,
+                    voteDAO.findTopByPostAndUsersOrderByVoteIdDesc(post,
                             authService.getCurrentUser());
             return voteForPostByUser.filter(vote -> vote.getVoteType().equals(voteType))
                     .isPresent();

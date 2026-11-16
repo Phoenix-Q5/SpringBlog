@@ -1,8 +1,8 @@
 package com.phoenix.blog.mapper;
 
-import com.phoenix.blog.DTO.SubpostDto;
-import com.phoenix.blog.Bean.Post;
-import com.phoenix.blog.Bean.Subpost;
+import com.phoenix.blog.dto.SubpostDto;
+import com.phoenix.blog.model.Post;
+import com.phoenix.blog.model.Subpost;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -1,15 +1,12 @@
 package com.phoenix.blog.service;
 
 import com.phoenix.blog.mapper.CommentMapper;
-import com.phoenix.blog.Bean.User;
-import com.phoenix.blog.DTO.CommentsDto;
+import com.phoenix.blog.model.*;
+import com.phoenix.blog.dto.CommentsDto;
 import com.phoenix.blog.exceptions.PostNotFoundException;
-import com.phoenix.blog.Bean.Comment;
-import com.phoenix.blog.Bean.NotificationEmail;
-import com.phoenix.blog.Bean.Post;
-import com.phoenix.blog.DAO.CommentDAO;
-import com.phoenix.blog.DAO.PostDAO;
-import com.phoenix.blog.DAO.UserDAO;
+import com.phoenix.blog.dao.CommentDAO;
+import com.phoenix.blog.dao.PostDAO;
+import com.phoenix.blog.dao.UserDAO;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -36,12 +33,12 @@ public class CommentService {
         Comment comment = commentMapper.map(commentsDto, post, authService.getCurrentUser());
         commentDAO.save(comment);
 
-        String message = mailContentBuilder.build(post.getUser().getUsername() + " posted a comment on your post." + POST_URL);
-        sendCommentNotification(message, post.getUser());
+        String message = mailContentBuilder.build(post.getUsers().getUsername() + " posted a comment on your post." + POST_URL);
+        sendCommentNotification(message, post.getUsers());
     }
 
-    private void sendCommentNotification(String message, User user) {
-        mailService.sendMail(new NotificationEmail(user.getUsername() + " Commented on your post", user.getEmail(), message));
+    private void sendCommentNotification(String message, Users users) {
+        mailService.sendMail(new NotificationEmail(users.getUsername() + " Commented on your post", users.getEmail(), message));
     }
 
     public List<CommentsDto> getAllCommentsForPost(Long postId) {
@@ -52,9 +49,9 @@ public class CommentService {
     }
 
     public List<CommentsDto> getAllCommentsForUser(String userName) {
-        User user = userDAO.findByUsername(userName)
+        Users users = userDAO.findByUsername(userName)
                 .orElseThrow(() -> new UsernameNotFoundException(userName));
-        return commentDAO.findAllByUser(user)
+        return commentDAO.findAllByUsers(users)
                 .stream()
                 .map(commentMapper::mapToDto)
                 .collect(toList());

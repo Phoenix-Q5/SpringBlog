@@ -1,8 +1,8 @@
 package com.phoenix.blog.controller;
 
 import com.phoenix.blog.service.PostService;
-import com.phoenix.blog.DTO.PostRequest;
-import com.phoenix.blog.DTO.PostResponse;
+import com.phoenix.blog.dto.PostRequest;
+import com.phoenix.blog.dto.PostResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

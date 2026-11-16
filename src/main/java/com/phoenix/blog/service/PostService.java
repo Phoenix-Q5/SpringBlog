@@ -1,16 +1,16 @@
 package com.phoenix.blog.service;
 
 import com.phoenix.blog.mapper.PostMapper;
-import com.phoenix.blog.Bean.Subpost;
-import com.phoenix.blog.Bean.User;
-import com.phoenix.blog.DTO.PostRequest;
-import com.phoenix.blog.DTO.PostResponse;
+import com.phoenix.blog.model.Subpost;
+import com.phoenix.blog.model.Users;
+import com.phoenix.blog.dto.PostRequest;
+import com.phoenix.blog.dto.PostResponse;
 import com.phoenix.blog.exceptions.PostNotFoundException;
 import com.phoenix.blog.exceptions.SubpostNotFoundException;
-import com.phoenix.blog.Bean.Post;
-import com.phoenix.blog.DAO.PostDAO;
-import com.phoenix.blog.DAO.SubpostDAO;
-import com.phoenix.blog.DAO.UserDAO;
+import com.phoenix.blog.model.Post;
+import com.phoenix.blog.dao.PostDAO;
+import com.phoenix.blog.dao.SubpostDAO;
+import com.phoenix.blog.dao.UserDAO;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -62,9 +62,9 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public List<PostResponse> getPostsByUsername(String username) {
-        User user = userDAO.findByUsername(username)
+        Users users = userDAO.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
-        return postDAO.findByUser(user)
+        return postDAO.findByUsers(users)
                 .stream()
                 .map(postMapper::mapToDto)
                 .collect(toList());

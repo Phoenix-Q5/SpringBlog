@@ -1,7 +1,7 @@
 package com.phoenix.blog.controller;
 
 import com.phoenix.blog.service.SubpostService;
-import com.phoenix.blog.DTO.SubpostDto;
+import com.phoenix.blog.dto.SubpostDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

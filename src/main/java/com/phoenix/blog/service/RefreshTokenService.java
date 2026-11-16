@@ -1,8 +1,8 @@
 package com.phoenix.blog.service;
 
 import com.phoenix.blog.exceptions.SpringPostException;
-import com.phoenix.blog.Bean.RefreshToken;
-import com.phoenix.blog.DAO.RefreshTokenDAO;
+import com.phoenix.blog.model.RefreshToken;
+import com.phoenix.blog.dao.RefreshTokenDAO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

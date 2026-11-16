@@ -1,0 +1,27 @@
+services:
+  blog:
+    build: .
+    restart: unless-stopped
+    environment:
+      APP_PUBLIC_BASE_URL: ${APP_PUBLIC_BASE_URL:-https://api-blog.corevanta.app}
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL:-jdbc:postgresql://postgres:5432/blog}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME:-super}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD:?Set the PostgreSQL password in .env}
+      SPRING_MAIL_USERNAME: ${SPRING_MAIL_USERNAME:?Set the Gmail address in .env}
+      SPRING_MAIL_PASSWORD: ${SPRING_MAIL_PASSWORD:?Set the Gmail app password in .env}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: ${SPRING_JPA_HIBERNATE_DDL_AUTO:-update}
+    networks:
+      - proxy
+      - infra
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.springblog.rule=Host(`${BLOG_HOST:-api-blog.corevanta.app}`)"
+      - "traefik.http.routers.springblog.entrypoints=web"
+      - "traefik.http.services.springblog.loadbalancer.server.port=8088"
+
+networks:
+  proxy:
+    external: true
+  infra:
+    external: true

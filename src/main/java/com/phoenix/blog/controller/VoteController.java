@@ -1,7 +1,7 @@
 package com.phoenix.blog.controller;
 
 import com.phoenix.blog.service.VoteService;
-import com.phoenix.blog.DTO.VoteDto;
+import com.phoenix.blog.dto.VoteDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

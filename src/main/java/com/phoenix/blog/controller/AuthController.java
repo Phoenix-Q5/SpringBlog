@@ -2,10 +2,10 @@ package com.phoenix.blog.controller;
 
 import com.phoenix.blog.service.AuthService;
 import com.phoenix.blog.service.RefreshTokenService;
-import com.phoenix.blog.DTO.AuthenticationResponse;
-import com.phoenix.blog.DTO.LoginRequest;
-import com.phoenix.blog.DTO.RefreshTokenRequest;
-import com.phoenix.blog.DTO.RegisterRequest;
+import com.phoenix.blog.dto.AuthenticationResponse;
+import com.phoenix.blog.dto.LoginRequest;
+import com.phoenix.blog.dto.RefreshTokenRequest;
+import com.phoenix.blog.dto.RegisterRequest;
 import lombok.AllArgsConstructor;
 import org.hibernate.NonUniqueResultException;
 import org.springframework.http.ResponseEntity;

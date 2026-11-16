@@ -1,7 +1,7 @@
 package com.phoenix.blog.controller;
 
 import com.phoenix.blog.service.CommentService;
-import com.phoenix.blog.DTO.CommentsDto;
+import com.phoenix.blog.dto.CommentsDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
