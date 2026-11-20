@@ -13,8 +13,4 @@ public class PostRequest {
     private String postName;
     private String url;
     private String description;
-
-    public String getSubpostName() {
-        return subpostName;
-    }
 }
